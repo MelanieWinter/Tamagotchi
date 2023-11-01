@@ -1,8 +1,7 @@
 const name = document.getElementById('name')
 const age = document.getElementById('age')
 const petHome = document.getElementById('pet-container')
-const playerImg = document.getElementById('pet')
-// let playerPetBaby;
+// const playerImg = document.getElementById('pet')
 const hungerMetric = document.getElementById('hunger-span')
 const sleepinessMetric = document.getElementById('sleepiness-span')
 const  boredomMetric = document.getElementById('boredom-span')
@@ -13,7 +12,7 @@ const play = document.getElementById('play')
 let areLightsOn = true
 
 class Pet {
-    constructor(name, age, hunger, sleepiness, boredom, image) {
+    constructor({name, age, hunger, sleepiness, boredom, image}) {
         this.isAlive = true;
         this.isIdle = true;
         this.isAnimated = false;
@@ -24,29 +23,48 @@ class Pet {
         this.boredom = boredom;
         this.image = image;
     }
+
+    clickToJello() {
+        this.image.addEventListener('click', this.jello);
+    }
+
+    jello() {
+        if (!this.isAnimated) {
+            this.isAnimated = true;
+            this.image.classList.add('jello');
+            setTimeout(() => {
+                this.isAnimated = false;
+                this.image.classList.remove('jello');
+            }, 900);
+        }
+    }
 }
 
-const player = new Pet ({
-    isAlive: true,
-    isIdle: true,
-    isAnimated: false,
+const player = new Pet({
+    name: "YourPetName",
     age: 0,
     hunger: 0,
     sleepiness: 0,
     boredom: 0,
-    image: playerImg,
-})
+    image: document.getElementById('pet')
+});
 
-// const playerBaby = new Pet() ({
-//     isAlive: true,
-//     isIdle: true,
-//     isAnimated: false,
-//     age: 0,
-//     hunger: 0,
-//     sleepiness: 0,
-//     boredom: 0,
-//     image: playerPetBaby,
-// })
+player.clickToJello();
+
+console.log(player.image)
+
+// Pet.clickToJello = () => {
+//     Pet.image.addEventListener('click', this.addJello)
+// }
+
+// Pet.jello = () => {
+//     if (!isAnimated) {
+//         isAnimated = true
+//         this.image.classList.add('jello')
+//         setTimeout(isAnimated = false, 900)
+//         setTimeout(this.image.classList.remove('jello'), 900)
+//     } 
+// }
 
 const toggleLights = () => {
     if (areLightsOn) {
@@ -58,17 +76,5 @@ const toggleLights = () => {
     }
 }
 
-const removeJello = () => {
-    player.image.classList.remove('jello')
-}
-
-const addJello = () => {
-    player.image.classList.add('jello')
-    setTimeout(removeJello, 900)
-}
-
 lights.addEventListener('click', toggleLights)
-
-player.image.addEventListener('click', addJello)
-// playerPetBaby.addEventListener('click', jelloAnimation)
 
