@@ -1,7 +1,7 @@
 const name = document.getElementById('name')
 const age = document.getElementById('age')
 const petHome = document.getElementById('pet-container')
-// const playerImg = document.getElementById('pet')
+const playerImg = document.getElementById('pet')
 const hungerMetric = document.getElementById('hunger-span')
 const sleepinessMetric = document.getElementById('sleepiness-span')
 const  boredomMetric = document.getElementById('boredom-span')
@@ -10,6 +10,8 @@ const lights = document.getElementById('lights')
 const play = document.getElementById('play')
 
 let areLightsOn = true
+
+// const playerImg = document.getElementById('pet')
 
 class Pet {
     constructor({name, age, hunger, sleepiness, boredom, image}) {
@@ -31,10 +33,10 @@ class Pet {
     jello() {
         if (!this.isAnimated) {
             this.isAnimated = true;
-            this.image.classList.add('jello');
+            playerImg.classList.add('jello');
             setTimeout(() => {
                 this.isAnimated = false;
-                this.image.classList.remove('jello');
+                playerImg.classList.remove('jello');
             }, 900);
         }
     }
@@ -46,7 +48,7 @@ const player = new Pet({
     hunger: 0,
     sleepiness: 0,
     boredom: 0,
-    image: document.getElementById('pet')
+    image: playerImg
 });
 
 player.clickToJello();
