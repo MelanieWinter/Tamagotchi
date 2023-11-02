@@ -34,21 +34,14 @@ class Pet {
         this.currentAnimationIdx = 0
     }
 
-    // increaseMetric = (property) => {
-    //     const interval = setInterval(() => {
-    //         this[property]++;
-    //         this[property + 'Metric'].innerText = this[property];
-    //     }, 6000);
-    // }
-
     increaseMetric = (property) => {
         const updateMetric = () => {
             this[property]++;
             this[property + 'Metric'].innerText = this[property];
-            const randomDelay = Math.floor(60000 + Math.random() * 90000);
+            const randomDelay = Math.floor(5000 + Math.random() * 10000);
             setTimeout(updateMetric, randomDelay);
         };
-        const initialDelay = Math.floor(60000 + Math.random() * 90000);
+        const initialDelay = Math.floor(5000 + Math.random() * 10000);
         setTimeout(updateMetric, initialDelay);
     }
 
@@ -62,6 +55,31 @@ class Pet {
 
     increaseBoredom = () => {
         this.increaseMetric('boredom', this.boredom)
+    }
+
+    decreaseMetric = (property) => {
+        if (this[property] > 0) {         
+            this[property]--;
+            this[property + 'Metric'].innerText = this[property];
+        }
+    }
+
+    feed = () => {
+        feed.addEventListener('click', () => {
+            this.decreaseMetric('hunger', this.hunger)
+        })
+    }
+
+    // sleep = () => {
+    //     lights.addEventListener('click', () => {
+    //         this.decreaseMetric('sleepiness', this.sleepiness)
+    //     })
+    // }
+
+    play = () => {
+        play.addEventListener('click', () => {
+            this.decreaseMetric('boredom', this.boredom)
+        })
     }
 
     clickToAnimate = () => {
@@ -140,6 +158,11 @@ const player = new Pet({
 player.increaseHunger()
 player.increaseSleepiness()
 player.increaseBoredom()
+
+player.feed()
+// player.sleep()
+player.play()
+
 player.clickToAnimate()
 
 const toggleLights = () => {
