@@ -1,6 +1,6 @@
 const name = document.getElementById('name')
 const age = document.getElementById('age')
-const petHome = document.getElementById('pet-container')
+const petHome = document.getElementById('pet-home')
 const petImage = document.getElementById('pet')
 const petHungerMetric = document.getElementById('pet-hunger-span')
 const petSleepinessMetric = document.getElementById('pet-sleepiness-span')
@@ -8,11 +8,12 @@ const petBoredomMetric = document.getElementById('pet-boredom-span')
 const feed = document.getElementById('feed')
 const lights = document.getElementById('lights')
 const play = document.getElementById('play')
+const petText = document.getElementById('pet-text')
 
 let areLightsOn = true
 
 class Pet {
-    constructor({name, age, hunger, hungerMetric, sleepiness, sleepinessMetric, boredom, boredomMetric, image}) {
+    constructor({name, age, hunger, hungerMetric, sleepiness, sleepinessMetric, boredom, boredomMetric, image, textBox}) {
         this.isAlive = true;
         this.isIdle = true;
         this.isAnimated = false;
@@ -25,13 +26,21 @@ class Pet {
         this.boredom = boredom;
         this.boredomMetric = boredomMetric;
         this.image = image;
+        this.textBox = textBox;
         this.animations = [
             this.jello,
             this.heartbeat,
             this.wobble,
             this.rotate,
         ];
-        this.currentAnimationIdx = 0
+        this.currentAnimationIdx = 0;
+    }
+
+    updateTextBox = (text) => {
+        this.textBox.innerText = text
+        this.textBox.classList.remove('slide-out');
+        void this.textBox.offsetWidth; // Force a reflow to restart the animation
+        this.textBox.classList.add('slide-out');
     }
 
     increaseMetric = (property) => {
@@ -96,12 +105,12 @@ class Pet {
             }
         });
     }
-    
 
     jello = () => {
         if (!this.isAnimated ) {
             this.isAnimated = true
             this.image.classList.add('jello')
+            this.updateTextBox("'jiggle'")
             setTimeout(() => {
                 this.isAnimated = false;
                 this.image.classList.remove('jello')
@@ -113,6 +122,7 @@ class Pet {
         if (!this.isAnimated) {
             this.isAnimated = true
             this.image.classList.add('heartbeat')
+            this.updateTextBox("'ouch'")
             setTimeout(() => {
                 this.isAnimated = false;
                 this.image.classList.remove('heartbeat')
@@ -124,6 +134,7 @@ class Pet {
         if (!this.isAnimated) {
             this.isAnimated = true
             this.image.classList.add('wobble')
+            this.updateTextBox("'ha ha'")
             setTimeout(() => {
                 this.isAnimated = false;
                 this.image.classList.remove('wobble')
@@ -135,12 +146,15 @@ class Pet {
         if (!this.isAnimated) {
             this.isAnimated = true
             this.image.classList.add('rotate')
+            this.updateTextBox("'wheee'")
             setTimeout(() => {
                 this.isAnimated = false;
                 this.image.classList.remove('rotate')
             }, 800);
         }
     }
+
+
 }
 
 const player = new Pet({
@@ -152,7 +166,8 @@ const player = new Pet({
     sleepinessMetric: petSleepinessMetric,
     boredom: 0,
     boredomMetric: petBoredomMetric,
-    image: petImage
+    image: petImage,
+    textBox: petText,
 });
 
 player.increaseHunger()
