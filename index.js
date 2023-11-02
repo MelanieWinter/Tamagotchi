@@ -11,8 +11,6 @@ const play = document.getElementById('play')
 
 let areLightsOn = true
 
-// const playerImg = document.getElementById('pet')
-
 class Pet {
     constructor({name, age, hunger, sleepiness, boredom, image}) {
         this.isAlive = true;
@@ -24,20 +22,59 @@ class Pet {
         this.sleepiness = sleepiness;
         this.boredom = boredom;
         this.image = image;
+        this.animations = [
+            this.jello,
+            this.heartbeat,
+            this.wobble,
+        ];
+        this.currentAnimationIdx = 0
     }
 
-    clickToJello() {
-        this.image.addEventListener('click', this.jello);
+    clickToAnimate = () => {
+        this.image.addEventListener('click', () => {
+            if (this.currentAnimationIdx < this.animations.length) {
+                const currentAnimation = this.animations[this.currentAnimationIdx];
+                currentAnimation();
+                this.currentAnimationIdx++;
+            } else {
+                this.currentAnimationIdx = 0;
+                const currentAnimation = this.animations[this.currentAnimationIdx];
+                currentAnimation();
+            }
+        });
     }
+    
 
-    jello() {
-        if (!this.isAnimated) {
-            this.isAnimated = true;
-            playerImg.classList.add('jello');
+    jello = () => {
+        if (!this.isAnimated ) {
+            this.isAnimated = true
+            this.image.classList.add('jello')
             setTimeout(() => {
                 this.isAnimated = false;
-                playerImg.classList.remove('jello');
-            }, 900);
+                this.image.classList.remove('jello')
+            }, 800);
+        }
+    }
+
+    heartbeat = () => {
+        if (!this.isAnimated) {
+            this.isAnimated = true
+            this.image.classList.add('heartbeat')
+            setTimeout(() => {
+                this.isAnimated = false;
+                this.image.classList.remove('heartbeat')
+            }, 800);
+        }
+    }
+
+    wobble = () => {
+        if (!this.isAnimated) {
+            this.isAnimated = true
+            this.image.classList.add('wobble')
+            setTimeout(() => {
+                this.isAnimated = false;
+                this.image.classList.remove('wobble')
+            }, 800);
         }
     }
 }
@@ -51,22 +88,7 @@ const player = new Pet({
     image: playerImg
 });
 
-player.clickToJello();
-
-console.log(player.image)
-
-// Pet.clickToJello = () => {
-//     Pet.image.addEventListener('click', this.addJello)
-// }
-
-// Pet.jello = () => {
-//     if (!isAnimated) {
-//         isAnimated = true
-//         this.image.classList.add('jello')
-//         setTimeout(isAnimated = false, 900)
-//         setTimeout(this.image.classList.remove('jello'), 900)
-//     } 
-// }
+player.clickToAnimate()
 
 const toggleLights = () => {
     if (areLightsOn) {
