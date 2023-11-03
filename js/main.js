@@ -1,10 +1,10 @@
 const name = document.getElementById('name')
-const age = document.getElementById('age')
+const petAgeEl = document.getElementById('age')
 const petHome = document.getElementById('pet-home')
 const petImage = document.getElementById('pet')
-const petHungerMetric = document.getElementById('pet-hunger-span')
-const petSleepinessMetric = document.getElementById('pet-sleepiness-span')
-const petBoredomMetric = document.getElementById('pet-boredom-span')
+const petHungerEl = document.getElementById('pet-hunger-span')
+const petSleepinessEl = document.getElementById('pet-sleepiness-span')
+const petBoredomEl = document.getElementById('pet-boredom-span')
 const feed = document.getElementById('feed')
 const lights = document.getElementById('lights')
 const play = document.getElementById('play')
@@ -13,20 +13,24 @@ const petText = document.getElementById('pet-text')
 let areLightsOn = true
 
 class Pet {
-    constructor({name, age, hunger, hungerMetric, sleepiness, sleepinessMetric, boredom, boredomMetric, image, textBox}) {
+    constructor({name, age, ageEl, home, hunger, hungerMetric, sleepiness, sleepinessMetric, boredom, boredomMetric, image, textBox}) {
         this.isAlive = true;
         this.isIdle = true;
         this.isAnimated = false;
         this.name = name;
         this.age = age;
-        this.hunger = hunger;
+        this.ageEl = ageEl
+        this.home = home
         this.hungerMetric = hungerMetric;
-        this.sleepiness = sleepiness;
         this.sleepinessMetric = sleepinessMetric;
-        this.boredom = boredom;
         this.boredomMetric = boredomMetric;
         this.image = image;
         this.textBox = textBox;
+        this.metrics = {
+            hunger: 0,
+            sleepiness: 0,
+            boredom: 0,
+        };
         this.animations = [
             this.jello,
             this.heartbeat,
@@ -36,34 +40,57 @@ class Pet {
         this.currentAnimationIdx = 0;
     }
 
+    dead = () => {
+        if (this.isAlive === false) {
+            this.image.style.backgroundColor = 'black'
+            this.home.style.filter = 'blur(1.5rem)'
+        }
+    }
+
+    increaseAge = () => {
+        const  updateAge = () => {
+            this.age++
+            this.ageEl.innerText = this.age
+            setTimeout(this.updateAge, 60000)
+        }
+        setTimeout(updateAge, 60000)
+    }
+    
     updateTextBox = (text) => {
         this.textBox.innerText = text
-        this.textBox.classList.remove('slide-out');
-        void this.textBox.offsetWidth; // Force a reflow to restart the animation
-        this.textBox.classList.add('slide-out');
+        this.textBox.classList.remove('slide-out')
+        void this.textBox.offsetWidth;
+        this.textBox.classList.add('slide-out')
     }
 
     increaseMetric = (property) => {
+        if (this.metrics[property] >= 2) {
+            this.isAlive = false
+            console.log(`${this.name} has died of ${property}.`)
+            return
+        }
         const updateMetric = () => {
-            this[property]++;
-            this[property + 'Metric'].innerText = this[property];
-            const randomDelay = Math.floor(5000 + Math.random() * 10000);
+            this.metrics[property]++
+            this[property + 'Metric'].innerText = this.metrics[property]
+            console.log('THIS: ' + property + 'Metric')
+            console.log('DEBUG: ' + property + ' = ' + this.metrics[property])
+            const randomDelay = Math.floor(5000 + Math.random() * 10000)
             setTimeout(updateMetric, randomDelay);
-        };
-        const initialDelay = Math.floor(5000 + Math.random() * 10000);
-        setTimeout(updateMetric, initialDelay);
+        }
+        const initialDelay = Math.floor(5000 + Math.random() * 10000)
+        setTimeout(updateMetric, initialDelay)
     }
 
     increaseHunger = () => {
-        this.increaseMetric('hunger', this.hunger)
+            this.increaseMetric('hunger');
     }
 
     increaseSleepiness = () => {
-        this.increaseMetric('sleepiness', this.sleepiness)
+        this.increaseMetric('sleepiness')
     }
 
     increaseBoredom = () => {
-        this.increaseMetric('boredom', this.boredom)
+        this.increaseMetric('boredom')
     }
 
     decreaseMetric = (property) => {
@@ -79,11 +106,29 @@ class Pet {
         })
     }
 
-    // sleep = () => {
-    //     lights.addEventListener('click', () => {
-    //         this.decreaseMetric('sleepiness', this.sleepiness)
-    //     })
-    // }
+    sleep = () => {
+    let lightsAreOff = false;
+    
+    const toggleLights = () => {
+        if (areLightsOn) {
+        petHome.style.backgroundColor = 'dimgrey';
+        areLightsOn = false;
+        lightsAreOff = true;
+
+        setTimeout(() => {
+            if (lightsAreOff) {
+            this.decreaseMetric('sleepiness', this.sleepiness);
+            }
+        }, 3000);
+        } else {
+        petHome.style.backgroundColor = 'white';
+        areLightsOn = true;
+        lightsAreOff = false;
+        }
+    }
+    
+    lights.addEventListener('click', toggleLights);
+    }
 
     play = () => {
         play.addEventListener('click', () => {
@@ -154,41 +199,33 @@ class Pet {
         }
     }
 
-
+    init = () => {
+        this.increaseAge()
+        this.increaseHunger()
+        this.increaseSleepiness()
+        this.increaseBoredom()
+        this.feed()
+        this.sleep()
+        this.play()
+        this.clickToAnimate()
+        this.dead()
+    }
 }
 
 const player = new Pet({
     name: "YourPetName",
     age: 0,
-    hunger: 0,
-    hungerMetric: petHungerMetric,
-    sleepiness: 0,
-    sleepinessMetric: petSleepinessMetric,
-    boredom: 0,
-    boredomMetric: petBoredomMetric,
+    ageEl: petAgeEl,
+    home: petHome,
+    hungerMetric: petHungerEl,
+    sleepinessMetric: petSleepinessEl,
+    boredomMetric: petBoredomEl,
     image: petImage,
     textBox: petText,
 });
 
-player.increaseHunger()
-player.increaseSleepiness()
-player.increaseBoredom()
+player.init()
 
-player.feed()
-// player.sleep()
-player.play()
-
-player.clickToAnimate()
-
-const toggleLights = () => {
-    if (areLightsOn) {
-        petHome.style.backgroundColor = 'dimgrey'
-        areLightsOn = false
-    } else {
-        petHome.style.backgroundColor = 'white'
-        areLightsOn = true
-    }
-}
-
-lights.addEventListener('click', toggleLights)
+console.log(player.isAlive)
+console.log(player.hungerMetric)
 
