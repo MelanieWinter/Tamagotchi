@@ -48,12 +48,12 @@ class Pet {
     }
 
     increaseAge = () => {
-        const  updateAge = () => {
+        const updateAge = () => {
             this.age++
             this.ageEl.innerText = this.age
-            setTimeout(this.updateAge, 60000)
+            setTimeout(updateAge, 30000)
         }
-        setTimeout(updateAge, 60000)
+        setTimeout(updateAge, 30000)
     }
     
     updateTextBox = (text) => {
