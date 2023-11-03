@@ -37,7 +37,7 @@ class Pet {
             this.wobble,
             this.rotate,
         ];
-        this.currentAnimationIdx = 0;
+        this.currentAnimationIdx = 0
     }
 
     dead = () => {
@@ -59,7 +59,7 @@ class Pet {
     updateTextBox = (text) => {
         this.textBox.innerText = text
         this.textBox.classList.remove('slide-out')
-        void this.textBox.offsetWidth;
+        void this.textBox.offsetWidth
         this.textBox.classList.add('slide-out')
     }
 
@@ -75,14 +75,14 @@ class Pet {
             console.log('THIS: ' + property + 'Metric')
             console.log('DEBUG: ' + property + ' = ' + this.metrics[property])
             const randomDelay = Math.floor(5000 + Math.random() * 10000)
-            setTimeout(updateMetric, randomDelay);
+            setTimeout(updateMetric, randomDelay)
         }
         const initialDelay = Math.floor(5000 + Math.random() * 10000)
         setTimeout(updateMetric, initialDelay)
     }
 
     increaseHunger = () => {
-            this.increaseMetric('hunger');
+            this.increaseMetric('hunger')
     }
 
     increaseSleepiness = () => {
@@ -95,8 +95,8 @@ class Pet {
 
     decreaseMetric = (property) => {
         if (this[property] > 0) {         
-            this[property]--;
-            this[property + 'Metric'].innerText = this[property];
+            this[property]--
+            this[property + 'Metric'].innerText = this[property]
         }
     }
 
@@ -107,27 +107,27 @@ class Pet {
     }
 
     sleep = () => {
-    let lightsAreOff = false;
+    let lightsAreOff = false
     
     const toggleLights = () => {
         if (areLightsOn) {
-        petHome.style.backgroundColor = 'dimgrey';
-        areLightsOn = false;
-        lightsAreOff = true;
+        petHome.style.backgroundColor = 'dimgrey'
+        areLightsOn = false
+        lightsAreOff = true
 
         setTimeout(() => {
             if (lightsAreOff) {
-            this.decreaseMetric('sleepiness', this.sleepiness);
+            this.decreaseMetric('sleepiness', this.sleepiness)
             }
-        }, 3000);
+        }, 3000)
         } else {
-        petHome.style.backgroundColor = 'white';
-        areLightsOn = true;
-        lightsAreOff = false;
+        petHome.style.backgroundColor = 'white'
+        areLightsOn = true
+        lightsAreOff = false
         }
     }
     
-    lights.addEventListener('click', toggleLights);
+    lights.addEventListener('click', toggleLights)
     }
 
     play = () => {
@@ -139,16 +139,16 @@ class Pet {
     clickToAnimate = () => {
         this.image.addEventListener('click', () => {
             if (this.currentAnimationIdx < this.animations.length) {
-                const currentAnimation = this.animations[this.currentAnimationIdx];
-                currentAnimation();
-                this.currentAnimationIdx++;
+                const currentAnimation = this.animations[this.currentAnimationIdx]
+                currentAnimation()
+                this.currentAnimationIdx++
             } else {
-                this.currentAnimationIdx = 0;
-                const currentAnimation = this.animations[this.currentAnimationIdx];
-                currentAnimation();
+                this.currentAnimationIdx = 0
+                const currentAnimation = this.animations[this.currentAnimationIdx]
+                currentAnimation()
                 this.currentAnimationIdx++
             }
-        });
+        })
     }
 
     jello = () => {
@@ -157,9 +157,9 @@ class Pet {
             this.image.classList.add('jello')
             this.updateTextBox("'jiggle'")
             setTimeout(() => {
-                this.isAnimated = false;
+                this.isAnimated = false
                 this.image.classList.remove('jello')
-            }, 800);
+            }, 800)
         }
     }
 
@@ -169,9 +169,9 @@ class Pet {
             this.image.classList.add('heartbeat')
             this.updateTextBox("'ouch'")
             setTimeout(() => {
-                this.isAnimated = false;
+                this.isAnimated = false
                 this.image.classList.remove('heartbeat')
-            }, 800);
+            }, 800)
         }
     }
 
@@ -181,9 +181,9 @@ class Pet {
             this.image.classList.add('wobble')
             this.updateTextBox("'ha ha'")
             setTimeout(() => {
-                this.isAnimated = false;
+                this.isAnimated = false
                 this.image.classList.remove('wobble')
-            }, 800);
+            }, 800)
         }
     }
 
@@ -193,9 +193,9 @@ class Pet {
             this.image.classList.add('rotate')
             this.updateTextBox("'wheee'")
             setTimeout(() => {
-                this.isAnimated = false;
+                this.isAnimated = false
                 this.image.classList.remove('rotate')
-            }, 800);
+            }, 800)
         }
     }
 
@@ -222,7 +222,7 @@ const player = new Pet({
     boredomMetric: petBoredomEl,
     image: petImage,
     textBox: petText,
-});
+})
 
 player.init()
 
