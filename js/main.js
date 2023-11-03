@@ -108,22 +108,28 @@ class Pet {
 
     sleep = () => {
     let lightsAreOff = false
-    
+
     const toggleLights = () => {
         if (areLightsOn) {
-        petHome.style.backgroundColor = 'dimgrey'
-        areLightsOn = false
-        lightsAreOff = true
+            petHome.style.backgroundColor = 'dimgrey'
+            areLightsOn = false
+            lightsAreOff = true
 
-        setTimeout(() => {
-            if (lightsAreOff) {
-            this.decreaseMetric('sleepiness', this.sleepiness)
+            const updateText = (count) => {
+                if (count >= 1) {
+                    this.updateTextBox(count)
+                    setTimeout(() => {
+                        updateText(count - 1)
+                    }, 1000)
+                } else {
+                    this.decreaseMetric('sleepiness', this.sleepiness)
+                }
             }
-        }, 3000)
+            updateText(3)
         } else {
-        petHome.style.backgroundColor = 'white'
-        areLightsOn = true
-        lightsAreOff = false
+            petHome.style.backgroundColor = 'white'
+            areLightsOn = true
+            lightsAreOff = false
         }
     }
     
@@ -228,4 +234,3 @@ player.init()
 
 console.log(player.isAlive)
 console.log(player.hungerMetric)
-
