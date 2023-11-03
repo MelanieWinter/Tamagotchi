@@ -94,9 +94,9 @@ class Pet {
     }
 
     decreaseMetric = (property) => {
-        if (this[property] > 0) {         
-            this[property]--
-            this[property + 'Metric'].innerText = this[property]
+        if (this.metrics[property] > 0) {         
+            this.metrics[property]--
+            this[property + 'Metric'].innerText = this.metrics[property]
         }
     }
 
