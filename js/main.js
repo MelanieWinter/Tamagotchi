@@ -41,7 +41,7 @@ class Pet {
     }
 
     dead = () => {
-        if (this.isAlive === false) {
+        if (!this.isAlive) {
             this.image.style.backgroundColor = 'black'
             this.home.style.filter = 'blur(1.5rem)'
         }
@@ -82,7 +82,7 @@ class Pet {
     }
 
     increaseHunger = () => {
-            this.increaseMetric('hunger')
+        this.increaseMetric('hunger')
     }
 
     increaseSleepiness = () => {
@@ -107,33 +107,28 @@ class Pet {
     }
 
     sleep = () => {
-    let lightsAreOff = false
+        const toggleLights = () => {
+            if (areLightsOn) {
+                this.home.style.backgroundColor = 'dimgrey'
+                areLightsOn = false
 
-    const toggleLights = () => {
-        if (areLightsOn) {
-            petHome.style.backgroundColor = 'dimgrey'
-            areLightsOn = false
-            lightsAreOff = true
-
-            const updateText = (count) => {
-                if (count >= 1) {
-                    this.updateTextBox(count)
-                    setTimeout(() => {
-                        updateText(count - 1)
-                    }, 1000)
-                } else {
-                    this.decreaseMetric('sleepiness', this.sleepiness)
+                const updateText = (count) => {
+                    if (count >= 1) {
+                        this.updateTextBox(count)
+                        setTimeout(() => {
+                            updateText(count - 1)
+                        }, 1000)
+                    } else {
+                        this.decreaseMetric('sleepiness', this.sleepiness)
+                    }
                 }
+                updateText(3)
+            } else {
+                this.home.style.backgroundColor = 'white'
+                areLightsOn = true
             }
-            updateText(3)
-        } else {
-            petHome.style.backgroundColor = 'white'
-            areLightsOn = true
-            lightsAreOff = false
-        }
-    }
-    
-    lights.addEventListener('click', toggleLights)
+        }       
+        lights.addEventListener('click', toggleLights)
     }
 
     play = () => {
