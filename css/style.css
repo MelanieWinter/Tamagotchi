@@ -16,17 +16,52 @@
     font-family: 'Lato', sans-serif;
 }
 
-#pet:hover {
+#nameEl {
+    height: 30px; 
+    width: 500px; 
+    margin-top: 50px; 
+    margin: auto; 
+    text-align: center; 
+    font-size: 30px; 
+    display: none;
+}
+
+#name-input-div-el {
+    display: flex; 
+    flex-direction: row; 
+    justify-content: center; 
+    align-items: center; 
+    margin-top: 50px;
+}
+
+#pet-el:hover {
     cursor: pointer;
 }
 
-button {
+#feed-button-el,
+#sleep-button-el,
+#play-button-el {
     height: 80px;
     width: 80px;
     background-color: white; 
     color: grey;
     border: 1px solid lightgray;
     border-radius: 5px;
+}
+
+#name-input-el {
+    background-color: white; 
+    color: grey;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+#name-input-button-el {
+    background-color: white; 
+    color: grey;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    margin-left: 2px;
 }
 
 button:hover {
