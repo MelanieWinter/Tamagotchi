@@ -203,7 +203,6 @@ function death() {
     clearInterval(gameInterval)
     gameRunning = false
     tamagotchi.isAlive = false
-
     tamagotchi.imageEl.style.backgroundColor = 'black'
     feedButtonEl.style.pointerEvents = 'none'
     sleepButtonEl.style.pointerEvents = 'none'
@@ -315,3 +314,5 @@ console.log('TEXTBOX: ', tamagotchi.textBoxEl.innerText)
 
 // ICEBOX:
 // name a sick() function. where if hunder or boredom go below 0. then the tamagotchi will be sick and there will be a penalty
+//make check age function in set interval
+//make kid teen adult old functions which morph the tamagotchi to a larger size
