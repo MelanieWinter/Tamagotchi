@@ -15,30 +15,32 @@
 
 <body class="font-lato" style="background-color: white; color: grey;">
     
-    <div id="nameEl">NAME NAME NAME</div>
+    <div id="name-el">NAME NAME NAME</div>
+    <div id="pet-age-el">Age: <span id="pet-age-span-el">&nbsp;&nbsp;---</span></div>
 
     <div id="name-input-div-el">
         <input id="name-input-el" style="height: 30px; width: 300px; font-size: 30px;" placeholder="Name your pet here: "></input>
         <button id="name-input-button-el" style="height: 35.5px;">Enter</button>
     </div>
 
-    <div id="pet-home-el" class="margin-auto border-1" style="height: 250px; width: 400px; margin-top: 13px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center;">
+    <div id="pet-home-el" class="margin-auto border-1" style="height: 250px; width: 450px; margin-top: 13px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center;">
 
-        <div id="pet-container-el" style="display: flex; flex-direction: column; justify-content: flex-end; align-items: center;;">
+        <div id="message-el"></div>
+        <div id="message2-el"></div>
+        <button id="reset-game-button-el">Play Again</button>
 
+        <div id="pet-container-el" style="display: flex; flex-direction: column; justify-content: flex-end; align-items: center;">
             <span id="pet-text-el" style="font-size: 10px; z-index: 4;"></span>
-
             <div id="pet-el" class="border-1" style="height: 10px; width: 20px; margin-bottom: 20px; border-radius: 20px; background-color: hsl(260, 67%, 79%); border: 1px solid hsl(259, 75%, 61%); z-index: 6;"></div>
-
         </div>
         
     </div>
 
     <div id="pet-metrics-el" class="margin-auto margint-50 border-1" style="height: 30px; width: 500px; margin-top: 30px; display: flex; flex-direction: row; justify-content: space-around; align-items: center; border-radius: 5px;">
-        <div id="pet-hunger-el">Hunger: <span id="pet-hunger-span-el">0</span></div>
-        <div id="pet-sleepiness-el">Sleepiness: <span id="pet-sleepiness-span-el">0</span></div>
-        <div id="pet-boredom-el">Boredom: <span id="pet-boredom-span-el">0</span></div>
-        <div id="pet-age-el">Age: <span id="pet-age-span-el">0</span></div>
+        <div id="pet-hunger-el">Hunger: <span id="pet-hunger-span-el">&nbsp;&nbsp;---</span></div>
+        <div id="pet-sleepiness-el">Sleepiness: <span id="pet-sleepiness-span-el">&nbsp;&nbsp;---</span></div>
+        <div id="pet-boredom-el">Boredom: <span id="pet-boredom-span-el">&nbsp;&nbsp;---</span></div>
+
 
         </div>
     </div>
