@@ -168,15 +168,23 @@ resetGameButtonEl.addEventListener('click', resetGame)
 // FUNCTIONS - VIEW //
 function toggleLights() {
     if (areLightsOn) {
+        tamagotchi.textBoxEl.style.color = 'white'
+        feedButtonEl.style.pointerEvents = 'none'
         sleepButtonEl.style.pointerEvents = 'none'
+        playButtonEl.style.pointerEvents = 'none'
+        tamagotchi.imageEl.style.pointerEvents = 'none'
         petHomeEl.style.backgroundColor = 'dimgrey'
         areLightsOn = false
     } else {
+        tamagotchi.textBoxEl.style.color = 'grey'
+        feedButtonEl.style.pointerEvents = 'auto'
         sleepButtonEl.style.pointerEvents = 'auto'
+        playButtonEl.style.pointerEvents = 'auto'
+        tamagotchi.imageEl.style.pointerEvents = 'auto'
         petHomeEl.style.backgroundColor = 'white'
         areLightsOn = true
     }
-} 
+}
 
 function nameThatTamagotchi() {
     const input = nameInputEl.value
