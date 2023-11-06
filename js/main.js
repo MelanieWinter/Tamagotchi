@@ -78,6 +78,7 @@ class Pet {
         }
     }
 
+    // VIEW //
     decreaseMetric(metricName) {
         const metric = this.metrics.find(metric => metric.name === metricName)
         const randomNum = Math.floor(1 + Math.random() * 3)
@@ -101,7 +102,6 @@ class Pet {
         }
     }
 
-    // VIEW //
     updateTextBox(text) {
         this.textBoxEl.textContent = text
         this.textBoxEl.classList.remove('slide-out')
@@ -184,6 +184,8 @@ function randomChance() {
 }
 
 function init() {
+    gameRunning = true
+    isAlive = true 
     gameInterval = setInterval(() => {
         time++
         console.log(time)
@@ -198,6 +200,9 @@ function init() {
             && tamagotchi.metrics[2].value < 10) {
                 tamagotchi.increaseMetric()
             } else {
+                gameRunning = false
+                tamagotchi.isAlive = false
+                clearInterval(gameInterval)
                 death()
             }
         }
@@ -237,9 +242,7 @@ function nameThatTamagotchi() {
     birth()
 }
 
-function birth() {
-    gameRunning = true
-    isAlive = true        
+function birth() {      
     feedButtonEl.style.pointerEvents = 'auto'
     sleepButtonEl.style.pointerEvents = 'auto'
     playButtonEl.style.pointerEvents = 'auto'
@@ -249,9 +252,6 @@ function birth() {
 }
 
 function death() {
-    clearInterval(gameInterval)
-    gameRunning = false
-    tamagotchi.isAlive = false
     tamagotchi.imageEl.style.backgroundColor = 'black'
     feedButtonEl.style.pointerEvents = 'none'
     sleepButtonEl.style.pointerEvents = 'none'
