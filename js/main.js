@@ -132,7 +132,7 @@ const tamagotchi = new Pet({
     textBoxEl: petTextEl,
 })
 
-// EVENT LISTENERS - CONTROLLER + VIEW //
+// EVENT LISTENERS //
 nameInputButtonEl.addEventListener('click', nameThatTamagotchi)
 nameInputEl.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
@@ -236,6 +236,43 @@ function death() {
     }
 }
 
+function resetGame() {
+    gameRunning = false
+    time = 0
+
+    tamagotchi.isAlive = false
+    tamagotchi.age = 0
+    tamagotchi.ate = 0
+    tamagotchi.slept = 0
+    tamagotchi.played = 0
+    tamagotchi.metrics = [
+        { name: METRIC_HUNGER, value: 0 },
+        { name: METRIC_SLEEPINESS, value: 0 },
+        { name: METRIC_BOREDOM, value: 0 }
+    ]
+
+    petImageEl.style.display = 'none'
+    feedButtonEl.style.pointerEvents = 'auto'
+    sleepButtonEl.style.pointerEvents = 'auto'
+    playButtonEl.style.pointerEvents = 'auto'
+    tamagotchi.imageEl.style.pointerEvents = 'auto'
+    tamagotchi.ageEl.innerText = '  ---'
+    tamagotchi.hungerMetricEl.innerText = '  ---'
+    tamagotchi.sleepinessMetricEl.innerText = '  ---'
+    tamagotchi.boredomMetricEl.innerText = '  ---'
+    tamagotchi.textBoxEl.innerText = ''
+    messageEl.innerText = ''
+    message2El.innerText = ''
+    resetGameButtonEl.style.display = 'none'
+    nameInputDivEl.style.display = 'flex'
+    tamagotchi.nameEl.style.display = 'none'
+    petAgeDivEl.style.display = 'none'
+    tamagotchi.imageEl.style.backgroundColor = 'hsl(260, 67%, 79%)'
+    tamagotchi.imageEl.style.border = '1px solid hsl(259, 75%, 61%)'
+
+    clearInterval(gameInterval)
+}
+
 // FUNCTIONS - CONTROLLER //
 function formatTime(seconds) {
     const hours = Math.floor(seconds / 3600)
@@ -275,50 +312,6 @@ function init() {
 
     tamagotchi.render()
 }
-
-function resetGame() {
-    gameRunning = false
-    time = 0
-
-    tamagotchi.isAlive = false
-    tamagotchi.age = 0
-    tamagotchi.ate = 0
-    tamagotchi.slept = 0
-    tamagotchi.played = 0
-    tamagotchi.metrics = [
-        { name: METRIC_HUNGER, value: 0 },
-        { name: METRIC_SLEEPINESS, value: 0 },
-        { name: METRIC_BOREDOM, value: 0 }
-    ]
-
-    petImageEl.style.display = 'none'
-    feedButtonEl.style.pointerEvents = 'auto'
-    sleepButtonEl.style.pointerEvents = 'auto'
-    playButtonEl.style.pointerEvents = 'auto'
-    tamagotchi.imageEl.style.pointerEvents = 'auto'
-    tamagotchi.ageEl.innerText = '  ---'
-    tamagotchi.hungerMetricEl.innerText = '  ---'
-    tamagotchi.sleepinessMetricEl.innerText = '  ---'
-    tamagotchi.boredomMetricEl.innerText = '  ---'
-    tamagotchi.textBoxEl.innerText = ''
-    messageEl.innerText = ''
-    message2El.innerText = ''
-    resetGameButtonEl.style.display = 'none'
-    nameInputDivEl.style.display = 'flex'
-    tamagotchi.nameEl.style.display = 'none'
-    petAgeDivEl.style.display = 'none'
-    tamagotchi.imageEl.style.backgroundColor = 'hsl(260, 67%, 79%)'
-    tamagotchi.imageEl.style.border = '1px solid hsl(259, 75%, 61%)'
-
-    clearInterval(gameInterval)
-}
-
-// FUNCTIONS  - VIEW //
-function render() {
-}
-
-console.log('TEXTBOX: ', tamagotchi.textBoxEl.innerText)
-
 
 // ICEBOX:
 // name a sick() function. where if hunder or boredom go below 0. then the tamagotchi will be sick and there will be a penalty
