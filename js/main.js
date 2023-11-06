@@ -119,6 +119,7 @@ class Pet {
     }
 }
 
+// INSTANCE - MODEL //
 const tamagotchi = new Pet({
     // MODEL //
     name: 'name',
@@ -164,6 +165,46 @@ playButtonEl.addEventListener('click', () => {
 })
 
 resetGameButtonEl.addEventListener('click', resetGame)
+
+// FUNCTIONS - CONTROLLER //
+function formatTime(seconds) {
+    const hours = Math.floor(seconds / 3600)
+    const minutes = Math.floor((seconds % 3600) / 60)
+    const remainingSeconds = seconds % 60
+    const formattedTime = 
+        `${String(hours).padStart(2, '0')}h ${String(minutes).padStart(2, '0')}m ${String(remainingSeconds).padStart(2, '0')}s`
+    return formattedTime
+}
+
+function randomChance() {
+    const randomNum = Math.floor(1 + Math.random() * 3)
+    if (randomNum === 3) {
+        return true
+    } return false
+}
+
+function init() {
+    gameInterval = setInterval(() => {
+        time++
+        console.log(time)
+    
+        if (time % 60 === 0) {
+                tamagotchi.increaseAge()
+        }
+        
+        if (time % 2 === 0) {
+            if (tamagotchi.metrics[0].value < 10 
+            && tamagotchi.metrics[1].value < 10 
+            && tamagotchi.metrics[2].value < 10) {
+                tamagotchi.increaseMetric()
+            } else {
+                death()
+            }
+        }
+    }, 1000)
+
+    tamagotchi.render()
+}
 
 // FUNCTIONS - VIEW //
 function toggleLights() {
@@ -271,46 +312,6 @@ function resetGame() {
     tamagotchi.imageEl.style.border = '1px solid hsl(259, 75%, 61%)'
 
     clearInterval(gameInterval)
-}
-
-// FUNCTIONS - CONTROLLER //
-function formatTime(seconds) {
-    const hours = Math.floor(seconds / 3600)
-    const minutes = Math.floor((seconds % 3600) / 60)
-    const remainingSeconds = seconds % 60
-    const formattedTime = 
-        `${String(hours).padStart(2, '0')}h ${String(minutes).padStart(2, '0')}m ${String(remainingSeconds).padStart(2, '0')}s`
-    return formattedTime
-}
-
-function randomChance() {
-    const randomNum = Math.floor(1 + Math.random() * 3)
-    if (randomNum === 3) {
-        return true
-    } return false
-}
-
-function init() {
-    gameInterval = setInterval(() => {
-        time++
-        console.log(time)
-    
-        if (time % 60 === 0) {
-                tamagotchi.increaseAge()
-        }
-        
-        if (time % 2 === 0) {
-            if (tamagotchi.metrics[0].value < 10 
-            && tamagotchi.metrics[1].value < 10 
-            && tamagotchi.metrics[2].value < 10) {
-                tamagotchi.increaseMetric()
-            } else {
-                death()
-            }
-        }
-    }, 1000)
-
-    tamagotchi.render()
 }
 
 // ICEBOX:
