@@ -65,7 +65,6 @@ class Pet {
     increaseAge() {
         this.age++
         this.render()
-        console.log('AGE: ', this.age)
     }
 
     increaseMetric() {
@@ -73,21 +72,19 @@ class Pet {
             if(randomChance()) {
                 this.metrics[i].value++
                 this.render()
-                console.log(`${this.metrics[i].name}`, this.metrics[i].value)
             }
         }
     }
 
-    // VIEW //
     decreaseMetric(metricName) {
         const metric = this.metrics.find(metric => metric.name === metricName)
         const randomNum = Math.floor(1 + Math.random() * 3)
         if (metric && metric.value > 0) {
             metric.value -= randomNum
-            this[metricName + 'MetricEl'].innerText = metric.value
         }
     }
 
+    // VIEW //
     countdownSleep(count) {
         if (count >= 1) {
             this.updateTextBox(count)
@@ -145,7 +142,6 @@ feedButtonEl.addEventListener('click', () => {
     tamagotchi.ate++
     tamagotchi.updateTextBox("' yum '")
     tamagotchi.decreaseMetric(METRIC_HUNGER)
-    console.log('ATE:', tamagotchi.ate)
 })
 
 sleepButtonEl.addEventListener('click', () => {
@@ -153,7 +149,6 @@ sleepButtonEl.addEventListener('click', () => {
     if (areLightsOn === false) {
         tamagotchi.slept++
         tamagotchi.countdownSleep(3)
-        console.log('SLEPT:', tamagotchi.slept)
     }
 })
 
@@ -161,7 +156,6 @@ playButtonEl.addEventListener('click', () => {
     tamagotchi.played++
     tamagotchi.updateTextBox("' yay '")
     tamagotchi.decreaseMetric(METRIC_BOREDOM)
-    console.log('PLAYED:', tamagotchi.played)
 })
 
 resetGameButtonEl.addEventListener('click', resetGame)
@@ -206,9 +200,8 @@ function init() {
                 death()
             }
         }
+        tamagotchi.render()
     }, 1000)
-
-    tamagotchi.render()
 }
 
 // FUNCTIONS - VIEW //
@@ -247,7 +240,6 @@ function birth() {
     sleepButtonEl.style.pointerEvents = 'auto'
     playButtonEl.style.pointerEvents = 'auto'
     tamagotchi.imageEl.style.pointerEvents = 'auto'
-    tamagotchi.render()
     init()
 }
 
