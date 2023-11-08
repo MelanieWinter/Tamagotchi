@@ -28,11 +28,12 @@ const nameInputDivEl = document.getElementById('name-input-div-el')
 const messageEl = document.getElementById('message-el')
 const message2El = document.getElementById('message2-el')
 const resetGameButtonEl = document.getElementById('reset-game-button-el')
+const petContainerEl = document.getElementById('pet-container-el')
 
 // OBEJECT - MODEL //
 class Pet {
     // MODEL //
-    constructor({name, nameEl, age, ageEl, hungerMetricEl, sleepinessMetricEl, boredomMetricEl, imageEl, textBoxEl}) {
+    constructor({name, nameEl, age, ageEl, hungerMetricEl, sleepinessMetricEl, boredomMetricEl, imageEl, textBoxEl, containerEl}) {
         this.isAlive = false;
         this.isIdle = true;
         this.isAnimated = false;
@@ -45,6 +46,7 @@ class Pet {
         this.boredomMetricEl = boredomMetricEl;
         this.imageEl = imageEl;
         this.textBoxEl = textBoxEl;
+        this.containerEl = containerEl
         this.metrics = [
             { name: METRIC_HUNGER, value: 0 },
             { name: METRIC_SLEEPINESS, value: 0 },
@@ -105,6 +107,9 @@ class Pet {
         void this.textBoxEl.offsetWidth
         this.textBoxEl.classList.add('slide-out')
     }
+
+    idleAnimation() {
+    }
     
 
     render() {
@@ -128,10 +133,12 @@ const tamagotchi = new Pet({
     boredomMetricEl: petBoredomEl,
     imageEl: petImageEl,
     textBoxEl: petTextEl,
+    containerEl: petContainerEl
 })
 
 // EVENT LISTENERS //
 nameInputButtonEl.addEventListener('click', nameThatTamagotchi)
+
 nameInputEl.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
         nameThatTamagotchi()
@@ -240,6 +247,7 @@ function birth() {
     sleepButtonEl.style.pointerEvents = 'auto'
     playButtonEl.style.pointerEvents = 'auto'
     tamagotchi.imageEl.style.pointerEvents = 'auto'
+    tamagotchi.containerEl.classList.add('slide')
     init()
 }
 
@@ -255,6 +263,7 @@ function death() {
     tamagotchi.ageEl.innerText = '  ---'
     tamagotchi.textBoxEl.classList.remove('slide-out')
     tamagotchi.textBoxEl.innerText = "' dead '"
+    tamagotchi.containerEl.classList.remove('slide')
     resetGameButtonEl.style.display = 'inline-block'
 
     for (let i = 0; i < tamagotchi.metrics.length; i++) {
@@ -310,3 +319,5 @@ function resetGame() {
 // name a sick() function. where if hunder or boredom go below 0. then the tamagotchi will be sick and there will be a penalty
 //make check age function in set interval
 //make kid teen adult old functions which morph the tamagotchi to a larger size
+
+
